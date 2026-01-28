@@ -4,7 +4,7 @@
 main:
 li x22, 10 # b = 10
 li x23, 3 # c = 3
-li x20, 2 # x = 2
+li x20, 4 # x = 4
 li x21, 0 # a = 0
 
 li x5, 1 # storing value 1

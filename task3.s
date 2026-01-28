@@ -2,29 +2,26 @@
 .globl main
 
 main:
-    li x25, 0x200  # base address
+    li x1, 10        # loop runs 10 times
+    li x22, 0        # i starts at 0
+    li x23, 0        # sum starts at 0
+    li x2, 0         # array position starts at 0
 
-    li x22, 0 # i = 0
-    li x24, 10 # x24 = loop limit is 10
+L1:
+    sw x22, 0x200(x2)  # put i in array
+    addi x22, x22, 1   # i goes up by 1
+    addi x2, x2, 4     # move to next spot
+    blt x22, x1, L1    # do again if i < 10
 
-    loop1:
-        bge x22, x24, endloop1 # if i > 10 loop exits
+    li x2, 0         # go back to start of array
+    li x22, 0        # i back to 0
 
-        slli x10, x22, 2 # x10 = i * 4
+L2:
+    lw x24, 0x200(x2)  # get array value
+    add x23, x23, x24  # add to total sum
+    addi x22, x22, 1   # i goes up by 1
+    addi x2, x2, 4     # move to next spot
+    blt x22, x1, L2    # do again if i < 10
 
-        # Calculating the address for a[i]
-        # address = 0x200 + (i * 4)
-        add x10, x10, x25 
-
-        # storing the value of i into a[i]
-        sw x22, 0(x10) 
-
-        # increment i
-        addi x22, x22, 1
-
-        j loop1
-    
-    endloop1:
-        
-
-
+end:
+    j end           # stoping here 
